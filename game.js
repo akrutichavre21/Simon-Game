@@ -11,6 +11,12 @@ var buttonColors = [
   "yellow"
 ];
 
+window.addEventListener('touchstart', function() {
+  if(level === 0) {
+    nextSequence();
+  }
+});
+
 $(document).keypress(function() {
   if(level === 0) {
     nextSequence();
@@ -49,10 +55,13 @@ function checkAnswer(currentLevel) {
     console.log("fail");
     playSound("wrong");
     $("body").addClass("game-over");
+    $("h1").html("Game Over!");
     setTimeout(function() {
       $("body").removeClass("game-over");
     }, 200);
-    startOver();
+    setTimeout(function() {
+      startOver();
+    }, 1000);
   }
 }
 
@@ -60,6 +69,7 @@ function startOver() {
   level = 0;
   gamePattern = [];
   started = true;
+  $("h1").html("Press A Key to Start");
 }
 
 function playSound(forColor) {
